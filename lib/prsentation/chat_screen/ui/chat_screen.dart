@@ -34,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool isShowIcons = true;
   bool isShowPicker = true;
 
-  // pick image from Camera
+  // pick image from Camera only pick now shown when send message
 
   pickImageCamera() async {
     try {
@@ -50,6 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e.toString());
     }
   }
+
+// Save message
 
   Future<void> _saveMessages() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -102,7 +104,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadMessages();
   }
@@ -224,10 +225,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   margin: EdgeInsets.only(bottom: 60.h),
                   height: size.height,
                   child: ListView.builder(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding:  EdgeInsets.only(top: 150.h),
                       controller: _scrollController,
                       itemCount: messagesList.length,
-                      physics: const AlwaysScrollableScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return Column(
@@ -258,9 +259,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget sendButton() {
     return Container(
       alignment: Alignment.bottomRight,
-      margin: const EdgeInsets.all(15.0),
+      margin:  EdgeInsets.all(15.0.r),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
@@ -268,20 +269,23 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: EdgeInsets.symmetric(horizontal: 8.w),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(25.0.r),
+                borderRadius: BorderRadius.circular(25.r),
                 boxShadow: const [
                   BoxShadow(
                       offset: Offset(0, 1), blurRadius: 1, color: Colors.grey)
                 ],
               ),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    ImagesHelper.smileIcon,
-                    color: Colors.grey,
-                    height: 17.h,
+                  Padding(
+                    padding:  EdgeInsets.only(bottom: 10.h),
+                    child: Image.asset(
+                      ImagesHelper.smileIcon,
+                      color: Colors.grey,
+                      height: 17.h,
+                    ),
                   ),
                   SizedBox(
                     width: 5.w,
@@ -315,50 +319,54 @@ class _ChatScreenState extends State<ChatScreen> {
                           border: InputBorder.none),
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          height = 150.h;
-                          isShowPicker = !isShowPicker;
+                  Padding(
+                    padding:  EdgeInsets.only(bottom: 10.h),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            height = 150.h;
+                            isShowPicker = !isShowPicker;
 
-                          setState(() {});
-                        },
-                        child: Image.asset(
-                          ImagesHelper.paperClip,
-                          color: Colors.black45,
-                          height: 17.h,
+                            setState(() {});
+                          },
+                          child: Image.asset(
+                            ImagesHelper.paperClip,
+                            color: Colors.black45,
+                            height: 17.h,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      isShowIcons == true
-                          ? Row(
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.all(5.r),
-                                    height: 20.h,
-                                    width: 20.w,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.black45,
-                                        shape: BoxShape.circle),
-                                    child: Image.asset(
-                                      ImagesHelper.rupeeIcon,
-                                      color: Colors.white,
-                                    )),
-                                SizedBox(
-                                  width: 25.w,
-                                ),
-                                const Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.black45,
-                                )
-                              ],
-                            )
-                          : const SizedBox()
-                    ],
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        isShowIcons == true
+                            ? Row(
+                                children: [
+                                  Container(
+                                      padding: EdgeInsets.all(5.r),
+                                      height: 20.h,
+                                      width: 20.w,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.black45,
+                                          shape: BoxShape.circle),
+                                      child: Image.asset(
+                                        ImagesHelper.rupeeIcon,
+                                        color: Colors.white,
+                                      )),
+                                  SizedBox(
+                                    width: 25.w,
+                                  ),
+                                  const Icon(
+                                    Icons.camera_alt,
+                                    color: Colors.black45,
+                                  )
+                                ],
+                              )
+                            : const SizedBox()
+                      ],
+                    ),
                   )
                 ],
               ),

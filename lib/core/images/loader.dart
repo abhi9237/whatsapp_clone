@@ -14,7 +14,6 @@ class _LoaderState extends State<Loader> {
     return Scaffold(
       body: Column(
         children: [
-
           // widget.isLoader == true ? const SizedBox(): const
           Center(child: CircularProgressIndicator(color: Colors.green,))
         ],

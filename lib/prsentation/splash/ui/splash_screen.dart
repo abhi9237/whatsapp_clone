@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           color: const Color.fromARGB(255, 72, 201, 77),
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(height: 20.h,),
                   ],
                 )
               ],
